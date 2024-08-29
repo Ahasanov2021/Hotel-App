@@ -1,0 +1,18 @@
+server:
+  port: 8088
+spring:
+  profiles:
+    active: ${PROFILE:test}
+  datasource:
+    password: ${DB_PASSWORD:password}
+    url: jdbc:mysql://${DB_HOSTNAME:localhost}:${DB_PORT:5680}/${DB_SCHEMA:inventory}
+    username: ${DB_USERNAME:user}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-${PROFILE:test}.yaml
