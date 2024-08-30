@@ -9,6 +9,9 @@ import com.example.demo.repository.PaymentInfoRepository;
 import com.example.demo.utils.PaymentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ public class RoomBookingService {
     @Autowired
     private PaymentInfoRepository paymentInfoRepository;
 
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public RoomBookingResponse book(RoomBookingRequest request){
 
         GuestInfo guestInfo = request.getGuestInfo();
